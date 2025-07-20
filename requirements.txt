@@ -1,0 +1,7 @@
+flask
+flask-cors
+openai
+textblob
+streamlit
+pandas
+requests
