@@ -2,17 +2,14 @@ import streamlit as st
 import pandas as pd
 from textblob import TextBlob
 from openai import OpenAI
-from dotenv import load_dotenv
-import os
 
-# Load environment variables from .env
-load_dotenv()
-api_key = os.getenv("OPENAI_API_KEY")
+# Load API key securely from Streamlit secrets
+api_key = st.secrets["OPENAI_API_KEY"]
 
 # Initialize OpenAI client
 client = OpenAI(api_key=api_key)
 
-# === Sentiment classifier ===
+# === Sentiment Classifier ===
 def classify_sentiment(text):
     polarity = TextBlob(text).sentiment.polarity
     if polarity > 0.2:
@@ -22,7 +19,7 @@ def classify_sentiment(text):
     else:
         return "neutral"
 
-# === Prompt generator ===
+# === Prompt Generator ===
 def generate_prompt(review, sentiment):
     if sentiment == "positive":
         return f"Write a warm, personalized thank you response to this review:\n\n'{review}'"
